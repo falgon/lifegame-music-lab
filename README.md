@@ -3,8 +3,10 @@
 ## 概要
 Life Musicは、ライフゲームのセルオートマトンと音楽生成を融合させたWebアプリケーションです。盤面上で進化するパターンをリアルタイムに音階へマッピングし、視覚と聴覚の両方で世代変化を楽しめます。
 
+このプロジェクトは[Codex](https://github.com/anthropics/codex)を使用して約15分で作成されました。
+
 ## デモサイト
-- GitHub Pages: https://<GitHubユーザー名>.github.io/life-music/
+- GitHub Pages: https://falgon.github.io/lifegame-music-lab/
 
 ## 主な機能
 - 音楽的ライフゲーム: セルの誕生・生存・死亡イベントをトリガーに音を再生
