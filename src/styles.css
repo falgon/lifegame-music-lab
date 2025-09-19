@@ -107,6 +107,69 @@ body {
   color: #cbd5f5;
 }
 
+
+.tip {
+  position: relative;
+  align-self: flex-end;
+}
+
+.tip__trigger {
+  border: none;
+  background: rgba(30, 64, 175, 0.45);
+  color: #e0f2fe;
+  padding: 0.35rem 0.8rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: help;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.tip__trigger:hover {
+  background: rgba(56, 189, 248, 0.65);
+  transform: translateY(-1px);
+}
+
+.tip__trigger:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 2px;
+}
+
+.tip__content {
+  position: absolute;
+  inset: auto auto -0.5rem 50%;
+  transform: translate(-50%, 0) scale(0.95);
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  width: min(320px, 80vw);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  box-shadow: 0 16px 30px rgba(8, 47, 73, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  color: #e2e8f0;
+}
+
+.tip__content::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px;
+  border-style: solid;
+  border-color: transparent transparent rgba(15, 23, 42, 0.95) transparent;
+}
+
+.tip:hover .tip__content,
+.tip:focus-within .tip__content {
+  opacity: 1;
+  transform: translate(-50%, -0.5rem) scale(1);
+  pointer-events: auto;
+}
 .toggle input[type='checkbox'] {
   width: 1.1rem;
   height: 1.1rem;

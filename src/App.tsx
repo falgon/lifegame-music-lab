@@ -43,6 +43,7 @@ const BOARD_OPTIONS: readonly { id: string; label: string; dims: Dimensions }[] 
 
 const INITIAL_BPM = 120
 const INITIAL_BOARD = BOARD_OPTIONS[1]
+const PLAYBACK_TIP = '次の世代で生き残るセルの音階が鳴り、誕生セルは短く強調され、存続セルは4分音符で鳴り、死亡セルは休符になります。'
 
 function App(): JSX.Element {
   const [dimensions, setDimensions] = useState<Dimensions>({ ...INITIAL_BOARD.dims })
@@ -184,6 +185,10 @@ function App(): JSX.Element {
   return (
     <div className="app">
       <h1 className="title">Life Music Lab</h1>
+      <div className="tip" role="note">
+        <button type="button" className="tip__trigger" aria-describedby="playback-tip">音の仕組み</button>
+        <span className="tip__content" id="playback-tip">{PLAYBACK_TIP}</span>
+      </div>
       <Controls
         bpm={bpm}
         dimensions={dimensions}
