@@ -19,12 +19,14 @@ interface ControlsProps {
   onPatternSelect: (id: string) => void
   onRandom: () => void
   onScaleChange: (value: ScaleId) => void
+  onShowNoteNamesChange: (value: boolean) => void
   onStep: () => void
   onTogglePlay: () => void
   scale: ScaleId
   scaleOptions: readonly ScaleOption[]
   patternOptions: readonly PatternOption[]
   boardOptions: readonly BoardOption[]
+  showNoteNames: boolean
 }
 
 const Controls = ({
@@ -37,12 +39,14 @@ const Controls = ({
   onPatternSelect,
   onRandom,
   onScaleChange,
+  onShowNoteNamesChange,
   onStep,
   onTogglePlay,
   scale,
   scaleOptions,
   patternOptions,
   boardOptions,
+  showNoteNames,
 }: ControlsProps): JSX.Element => {
   const handleBpmChange = (event: ChangeEvent<HTMLInputElement>) => {
     onBpmChange(Number(event.target.value))
@@ -65,6 +69,10 @@ const Controls = ({
       onPatternSelect(value)
       event.target.selectedIndex = 0
     }
+  }
+
+  const handleNoteNamesToggle = (event: ChangeEvent<HTMLInputElement>) => {
+    onShowNoteNamesChange(event.target.checked)
   }
 
   const currentBoard = boardOptions.find(
@@ -134,6 +142,14 @@ const Controls = ({
               </option>
             ))}
           </select>
+        </label>
+        <label className="toggle">
+          <input
+            type="checkbox"
+            checked={showNoteNames}
+            onChange={handleNoteNamesToggle}
+          />
+          <span>階名表示</span>
         </label>
       </div>
     </section>

@@ -15,7 +15,13 @@ import {
   type Grid as LifeGrid,
 } from './life'
 import { PATTERNS } from './patterns'
-import { buildNoteEvents, scaleOptions, type ScaleId } from './mapping'
+import {
+  buildNoteEvents,
+  coordinateToNote,
+  noteToSolfege,
+  scaleOptions,
+  type ScaleId,
+} from './mapping'
 import {
   clearScheduled,
   disposeAudio,
@@ -48,6 +54,7 @@ function App(): JSX.Element {
   const [isPlaying, setIsPlaying] = useState(false)
   const [generation, setGeneration] = useState(0)
   const [noteCount, setNoteCount] = useState(0)
+  const [showNoteNames, setShowNoteNames] = useState(false)
 
   const scheduleIdRef = useRef<number | undefined>(undefined)
 
@@ -159,7 +166,20 @@ function App(): JSX.Element {
     setGrid((current) => resizeGrid(current, dimensions))
   }, [dimensions])
 
+  const handleShowNoteNamesChange = useCallback((value: boolean) => {
+    setShowNoteNames(value)
+  }, [])
+
   const gridDimensions = useMemo(() => dimensionsFromGrid(grid), [grid])
+
+  const noteLabels = useMemo(() => {
+    return Array.from({ length: dimensions.rows }, (_, y) =>
+      Array.from({ length: dimensions.cols }, (_, x) => {
+        const note = coordinateToNote({ x, y }, scale)
+        return noteToSolfege(note)
+      }),
+    )
+  }, [dimensions, scale])
 
   return (
     <div className="app">
@@ -174,14 +194,21 @@ function App(): JSX.Element {
         onPatternSelect={handlePatternSelect}
         onRandom={handleRandom}
         onScaleChange={setScale}
+        onShowNoteNamesChange={handleShowNoteNamesChange}
         onStep={handleStep}
         onTogglePlay={handleTogglePlay}
         scale={scale}
         scaleOptions={scaleOptions()}
         patternOptions={PATTERNS}
         boardOptions={BOARD_OPTIONS}
+        showNoteNames={showNoteNames}
       />
-      <Grid grid={grid} onToggleCell={handleToggleCell} />
+      <Grid
+        grid={grid}
+        noteLabels={noteLabels}
+        onToggleCell={handleToggleCell}
+        showNoteNames={showNoteNames}
+      />
       <footer className="status">
         <span>世代: {generation}</span>
         <span>同時発音数: {noteCount}</span>

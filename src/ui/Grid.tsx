@@ -3,10 +3,12 @@ import type { CellPosition, Grid as LifeGrid } from '../life'
 
 interface GridProps {
   grid: LifeGrid
+  noteLabels: string[][]
   onToggleCell: (position: CellPosition) => void
+  showNoteNames: boolean
 }
 
-const Grid = ({ grid, onToggleCell }: GridProps): JSX.Element => {
+const Grid = ({ grid, noteLabels, onToggleCell, showNoteNames }: GridProps): JSX.Element => {
   const columns = grid[0]?.length ?? 0
 
   return (
@@ -15,16 +17,23 @@ const Grid = ({ grid, onToggleCell }: GridProps): JSX.Element => {
       style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
     >
       {grid.map((row, y) =>
-        row.map((alive, x) => (
-          <button
-            key={`${x}-${y}`}
-            type="button"
-            className={`cell${alive ? ' cell--alive' : ''}`}
-            onClick={() => onToggleCell({ x, y })}
-            aria-label={`列 ${x + 1} 行 ${y + 1} は${alive ? '生' : '死'}`}
-            aria-pressed={alive}
-          />
-        )),
+        row.map((alive, x) => {
+          const label = noteLabels[y]?.[x] ?? ''
+          const ariaBase = `列 ${x + 1} 行 ${y + 1} は${alive ? '生' : '死'}`
+          const ariaLabel = showNoteNames && label ? `${ariaBase}（階名 ${label}）` : ariaBase
+          return (
+            <button
+              key={`${x}-${y}`}
+              type="button"
+              className={`cell${alive ? ' cell--alive' : ''}`}
+              onClick={() => onToggleCell({ x, y })}
+              aria-label={ariaLabel}
+              aria-pressed={alive}
+            >
+              {showNoteNames ? <span className="cell__label">{label}</span> : null}
+            </button>
+          )
+        }),
       )}
     </div>
   )
