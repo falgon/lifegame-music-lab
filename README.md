@@ -1,69 +1,35 @@
-# React + TypeScript + Vite
+# Life Music
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 概要
+Life Musicは、ライフゲームのセルオートマトンと音楽生成を融合させたWebアプリケーションです。盤面上で進化するパターンをリアルタイムに音階へマッピングし、視覚と聴覚の両方で世代変化を楽しめます。
 
-Currently, two official plugins are available:
+## デモサイト
+- GitHub Pages: https://<GitHubユーザー名>.github.io/life-music/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 主な機能
+- 音楽的ライフゲーム: セルの誕生・生存・死亡イベントをトリガーに音を再生
+- 音階マッピング: 選択した音階やコード進行に合わせてノートを生成
+- パターン配置: プリセットやドラッグ&ドロップで初期パターンを配置
+- 日本語UI: 操作パネルや設定項目を日本語で提供
 
-## Expanding the ESLint configuration
+## 技術スタック
+- React 19
+- TypeScript
+- Vite
+- Tone.js
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## セットアップとビルド
+```bash
+npm install
+npm run build
 ```
+- Node.js 20系以上を推奨します。
+- ビルド成果物は`dist/`に出力され、そのまま静的ホスティング可能です。
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 使い方
+1. `npm run dev`で開発サーバーを起動し、ブラウザで`http://localhost:5173`にアクセスします。
+2. 盤面上にセルを配置またはプリセットを読み込みます。
+3. 再生ボタンでシミュレーションと音楽再生を開始し、テンポや音階設定を調整します。
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## ライセンス
+MIT License
